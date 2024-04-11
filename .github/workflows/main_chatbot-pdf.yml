@@ -1,0 +1,72 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy ASP app to Azure Web App - ChatBot-PDF
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14' # Specify your Node.js version
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./Client
+    - name: Build React app
+      run: CI=false npm run build
+      working-directory: ./Client
+    - name: Upload artifact for deployment
+      uses: actions/upload-artifact@v2
+      with:
+        name: react-build
+        path: ./Client/build
+    - uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10' 
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+
+    steps:
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4E741629D5A643F78D4BED634E26A767 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9764D5385B7542EDAB23EDD1C4984FD0 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B1FDE7C1FEB1486DAF9DCD921CD87B33 }}
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: react-build
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'ChatBot-PDF'
+          slot-name: 'Production'
+          package: .
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+
+          
