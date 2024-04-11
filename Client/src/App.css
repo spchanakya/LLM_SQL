@@ -1,0 +1,538 @@
+.body {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.meghaiChat {
+  display: flex;
+  flex-direction: row;
+  background-color: whitesmoke;
+  width: 100%;
+  height: 100%;
+}
+
+.chatHistory {
+  width: 340px;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 4px rgb(168, 154, 154);
+}
+
+.chatRoom {
+  width: 85%;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 4px rgb(168, 154, 154);
+  height:765px;
+}
+
+.leftsideBar {
+  display: flex;
+  margin-left: 20px;
+  position: sticky;
+  margin-bottom: 30px;
+}
+
+.logo-image {
+  margin-top: 15px;
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.new-chat {
+  font-size: 17px;
+  color: rgb(54, 54, 81);
+  margin-top: 25px;
+}
+
+.new-chat-open {
+  margin-left: 100px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.chat-history-data {
+  height: 480px;
+}
+
+.history-question-active{
+  margin-left:10px;
+  padding: 10px;
+  margin-top: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+  color: black;
+  border-radius: 5px;
+  font-weight: 600px;
+  font-size: 17px;
+  background-color: rgb(189, 165, 165);
+}
+
+.history-question{
+  margin-left:10px;
+  padding: 10px;
+  margin-top: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+  color: black;
+  font-weight: 600px;
+  font-size: 17px;
+}
+
+.history-question:hover{
+  background-color: rgb(189, 165, 165);
+  border-radius: 5px;
+}
+
+.showthe-question-answer {
+  height: 500px;
+  justify-content: center;
+}
+
+.chatboot-search-box {
+  position: relative;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  margin-left: 40px;
+  position: sticky;
+}
+
+.input-box {
+  width: 780px;
+  font-size: 17px;
+  border-radius: 20px;
+  border: 1px solid gray;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  max-height: 60px;
+  padding: 15px;
+}
+
+.sent-button-enable {
+  position: relative;
+  right: 70px;
+  top: 10px;
+  background-color: black;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.sent-button-disabled {
+  position: relative;
+  right: 90px;
+  top: 10px;
+  background-color: black;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.image-icon {
+  text-align: center;
+  margin-top: 110px;
+}
+
+.image-icon img {
+  margin-top: 15px;
+  width: 100px;
+  height: 100px;
+  margin-right: 15px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.image-icon h4 {
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(54, 54, 81);
+  margin: 5px;
+
+}
+
+.default-questions {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 180px;
+  flex-wrap: wrap;
+}
+
+.question-text {
+  margin: 7px;
+  border: 1px solid gray;
+  padding: 7px;
+  width: 370px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.user-question {
+  width: 290px;
+  padding-top: 13px;
+  padding-left: 8px;
+}
+
+.decriptionText {
+  color: gray;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.uparrowIcon {
+  position: relative;
+  left: 50%;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  padding: 5px;
+  visibility: hidden;
+  margin-top: 10px;
+  top: 22px;
+}
+
+.question-text:hover .uparrowIcon {
+  visibility: visible;
+  background-color: white;
+
+}
+
+.showthe-questionText-answer {
+  position: relative;
+  height: 610px;
+  margin-top: 20px;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.user-textQuestion {
+  position: relative;
+  margin-left: 13%;
+  top: 30px;
+  margin-bottom: 40px;
+  text-transform: capitalize;
+  color: black;
+  font-weight: 500;
+}
+
+.assistant-textQuestion{
+  position: relative;
+  margin-left: 13%;
+  top: 30px;
+  margin-bottom: 50px;
+  text-transform: capitalize;
+  font-weight: 500;
+
+}
+
+.user-textQuestion img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.assistant-textQuestion img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+
+.answerText {
+  position: relative;
+  margin-left: 7%;
+  top: 10px;
+  right:30px;
+  font-weight: 400;
+}
+
+.profile-siginUp-Login {
+  height: 194px;
+  cursor: pointer;
+}
+
+.userProfile {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  margin-left: 5px;
+}
+
+.userProfile:hover {
+  background-color: white;
+  width: 260px;
+  border-radius: 10px;
+  word-break: break-all;
+}
+
+.userProfileImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: 7px;
+  object-fit: cover;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+
+.loginBtns .title {
+  font-size: 15px;
+  color: black;
+  margin-left: 15px;
+  font-family: sans-serif;
+  font-weight: 600;
+
+}
+
+.loginUserName {
+  margin-top: 15px;
+  font-weight: 500;
+  margin-left: 5px;
+  word-break: break-all;
+  width: 190px;
+}
+
+.loginBtns .alertDescription {
+  font-size: 15px;
+  color: gray;
+  margin-left: 15px;
+  font-family: sans-serif;
+}
+
+.loginBtn {
+  width: 250px;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: rgb(54, 54, 81);
+  color: white;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border: none;
+}
+
+.signInBtn {
+  width: 250px;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  background-color: #DCD7A0;
+  color: black;
+  border-radius: 10px;
+  margin-left: 10px;
+  border: none;
+}
+
+
+.dropdown-content {
+  position: absolute;
+  z-index: 2000;
+  left: 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgb(168, 154, 154);
+  border-radius: 10px;
+  width: 245px;
+  height: 185px;
+  top: 460px;
+  cursor: pointer;
+}
+
+.customizeChat {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 15px;
+  font-size: 15px;
+  font-weight: 400;
+  color: black;
+  padding: 10px;
+}
+
+.customizeChat:hover {
+  background-color: whitesmoke;
+  border-radius: 5px;
+}
+
+
+.Settingss {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 400;
+  color: black;
+}
+
+.Settingss:hover {
+  background-color: whitesmoke;
+  border-radius: 5px;
+}
+
+
+.logOut {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 10px;
+  color: black;
+}
+
+.logOut:hover {
+  background-color: whitesmoke;
+  border-radius: 5px;
+  width: 210px;
+}
+
+
+.login-content {
+  text-align: center;
+
+}
+
+.login-container {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-wrapper {
+  position: relative;
+  margin-bottom: 25px;
+  width: 320px;
+  box-sizing: content-box;
+}
+
+
+.email-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #c2c8d0;
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #2d333a;
+  font-family: inherit;
+  font-size: 16px;
+  height: 52px;
+  line-height: 1.1;
+  outline: none;
+  padding-block: 1px;
+  padding-inline: 2px;
+  padding: 0 16px;
+  transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
+  width: 100%;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  margin: 0;
+}
+
+.email-label {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  background-color: #fff;
+  color: #6f7780;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  max-width: 90%;
+  overflow: hidden;
+  pointer-events: none;
+  padding: 1px 6px;
+  text-overflow: ellipsis;
+  transform: translateY(-50%);
+  transform-origin: 0;
+  transition: transform .15s ease-in-out, top .15s ease-in-out, padding .15s ease-in-out;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.continueBtn {
+  width: 320px;
+  border-radius: 5px;
+  height: 50px;
+  border: none;
+  outline: none;
+  background-color: #10a37f;
+  color: white;
+  font-size: 17px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.sigbUpLink {
+  margin-top: 15px;
+  color: black;
+  font-weight: 500;
+  font-family: sans-serif;
+}
+
+.breakLine {
+  margin-top: 30px;
+  border-top: 1px solid gray
+}
+
+.breakOr {
+  position: relative;
+  background-color: white;
+  width: 50px;
+  top: -13px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: sans-serif;
+}
+
+.social-section {
+  position: relative;
+  margin-bottom: 25px;
+  width: 320px;
+  box-sizing: content-box;
+}
+
+.social-section button {
+  width: 320px;
+  height: 50px;
+  margin-top: 10px;
+  outline: none;
+  border: 1px solid gray;
+  border-radius: 5px;
+  text-align: start;
+  padding: 5px;
+  text-indent: 10px;
+}
+
+.social-section button:hover {
+  box-shadow: inset 0 0 0 150px #0000001a;
+}
+
+.social-section .social-text {
+  margin-left: 10px;
+  font-size: 17px;
+  font-family: sans-serif;
+}
+
+.titleHeader {
+  font-size: 30px;
+}
