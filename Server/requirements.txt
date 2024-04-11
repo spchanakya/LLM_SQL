@@ -1,0 +1,7 @@
+Flask==3.0.3
+Flask_Cors==4.0.0
+langchain==0.1.15
+langchain_community==0.0.32
+langchain_openai==0.1.2
+psycopg2_binary==2.9.9
+python-dotenv==1.0.1
