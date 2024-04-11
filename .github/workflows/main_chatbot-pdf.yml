@@ -34,6 +34,14 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.10' 
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      working-directory: ./Server
+    - name: run the flask app
+      run: python index_2.py
+      working-directory: ./Server
 
   deploy:
     runs-on: windows-latest
