@@ -83,4 +83,7 @@ jobs:
           app-name: 'ChatBot-PDF'
           slot-name: 'Production'
           package: .
+      - name: Output Web App URL
+        run: echo "Flask app running on ${{ steps.deploy-to-webapp.outputs.webapp-url }}"
+
           
