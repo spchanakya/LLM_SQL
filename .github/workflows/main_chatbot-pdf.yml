@@ -6,7 +6,7 @@ name: Build and deploy ASP app to Azure Web App - ChatBot-PDF
 on:
   push:
     branches:
-      - main
+      - backend
   workflow_dispatch:
 
 jobs:
