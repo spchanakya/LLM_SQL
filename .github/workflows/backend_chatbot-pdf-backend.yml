@@ -1,66 +1,42 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy ASP app to Azure Web App - ChatBot-PDF-backend
+name: Build and deploy Flask app to Azure Web App - ChatBot-PDF-backend
 
 on:
   push:
     branches:
-      - backend
-  workflow_dispatch:
+      - backend  # Trigger on pushes to the backend branch
+  workflow_dispatch:  # Allows you to manually trigger the workflow
 
 jobs:
-  build:
-    runs-on: windows-latest
+  build-and-deploy:
+    runs-on: ubuntu-latest  # Changed to a Linux runner as it's more common for Python
 
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4  # Checks out your repository under $GITHUB_WORKSPACE
 
-      - name: Setup MSBuild path
-        uses: microsoft/setup-msbuild@v1.0.2
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'  # Ensure this matches the Python version you're using
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.0.5
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-      - name: Restore NuGet packages
-        run: nuget restore
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_431988983063410782CF87E38DFC6F5A }}
+        tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_1538EDD5012F42DE9F2C38D4385D22F9 }}
+        subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_24799376E9074E27A93A16023A4BD4DB }}
 
-      - name: Publish to folder
-        run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'ChatBot-PDF-backend'  # Make sure this matches the name of your Azure Web App
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: .
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: ASP-app
-          path: '/published/**'
+    - name: Post deployment action
+      run: echo "Deployed successfully to Azure Web App!"
 
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: ASP-app
-      
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_431988983063410782CF87E38DFC6F5A }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_1538EDD5012F42DE9F2C38D4385D22F9 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_24799376E9074E27A93A16023A4BD4DB }}
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'ChatBot-PDF-backend'
-          slot-name: 'Production'
-          package: .
-          
