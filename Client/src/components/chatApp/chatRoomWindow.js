@@ -14,7 +14,7 @@ function ChatRoomWindow({ setShowNewTab, showNewTab }) {
         // Fetch the initial session ID when the component mounts
         const fetchSessionId = async () => {
             try {
-                const response = await fetch('/setid',{
+                const response = await fetch('http://127.0.0.1:5000/setid',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ function ChatRoomWindow({ setShowNewTab, showNewTab }) {
         setShowNewTab(true);
     
         try {
-            const response = await fetch('/write', {
+            const response = await fetch('http://127.0.0.1:5000/write', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
