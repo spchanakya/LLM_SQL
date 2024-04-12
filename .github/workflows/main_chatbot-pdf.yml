@@ -11,44 +11,28 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14' # Specify your Node.js version
-    - name: Install dependencies
-      run: npm install
-      working-directory: ./Client
-    - name: Build React app
-      run: CI=false npm run build
-      working-directory: ./Client
-    - name: Upload artifact for deployment
-      uses: actions/upload-artifact@v2
-      with:
-        name: react-build
-        path: ./Client/build
-    - uses: actions/checkout@v2
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.10' 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-      working-directory: ./Server
-    - name: Prepare backend for deployment
-      run: |
-        zip -r backend.zip .
-      working-directory: ./Server
+    runs-on: windows-latest
 
-    - name: Upload backend artifact
-      uses: actions/upload-artifact@v2
-      with:
-          name: flask-backend
-          path: ./Server/backend.zip
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup MSBuild path
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+
+      - name: Restore NuGet packages
+        run: nuget restore
+
+      - name: Publish to folder
+        run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: ASP-app
+          path: '/published/**'
 
   deploy:
     runs-on: windows-latest
@@ -60,23 +44,17 @@ jobs:
       id-token: write #This is required for requesting the JWT
 
     steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: ASP-app
       
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4E741629D5A643F78D4BED634E26A767 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9764D5385B7542EDAB23EDD1C4984FD0 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B1FDE7C1FEB1486DAF9DCD921CD87B33 }}
-
-      - name: Download frontend artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: react-build
-      - name: Download backend artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: flask-backend
-
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A80C320DCF9F4A709E26B1C12E871E31 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5CEB2698E8BA413F8F69725106B2BAC7 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5EFF3E169D0042CBACFD4F13B1615521 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -85,8 +63,4 @@ jobs:
           app-name: 'ChatBot-PDF'
           slot-name: 'Production'
           package: .
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-
           
