@@ -14,7 +14,7 @@ function ChatRoomWindow({ setShowNewTab, showNewTab }) {
         // Fetch the initial session ID when the component mounts
         const fetchSessionId = async () => {
             try {
-                const response = await fetch('http://chatbot-pdf.azurewebsites.net/setid',{
+                const response = await fetch('/setid',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ function ChatRoomWindow({ setShowNewTab, showNewTab }) {
         setShowNewTab(true);
     
         try {
-            const response = await fetch('http://chatbot-pdf.azurewebsites.net/write', {
+            const response = await fetch('/write', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
