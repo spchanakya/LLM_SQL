@@ -39,9 +39,16 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
       working-directory: ./Server
-    - name: run the flask app
-      run: python index_2.py
+    - name: Prepare backend for deployment
+      run: |
+        zip -r backend.zip .
       working-directory: ./Server
+
+    - name: Upload backend artifact
+      uses: actions/upload-artifact@v2
+      with:
+          name: flask-backend
+          path: ./Server/backend.zip
 
   deploy:
     runs-on: windows-latest
@@ -61,10 +68,15 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9764D5385B7542EDAB23EDD1C4984FD0 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B1FDE7C1FEB1486DAF9DCD921CD87B33 }}
 
-      - name: Download artifact
+      - name: Download frontend artifact
         uses: actions/download-artifact@v2
         with:
           name: react-build
+      - name: Download backend artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: flask-backend
+
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
